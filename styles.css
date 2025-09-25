@@ -1,0 +1,408 @@
+:root {
+  /* Light theme defaults */
+  --page: #f7f5ef;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #4b5563;
+  --ring: rgba(0, 0, 0, 0.12);
+  --input-bg: #ffffff;
+  --input-text: #111827;
+  --placeholder: #6b7280;
+  --translucent-surface: rgba(0, 0, 0, 0.04);
+
+  --emerald: #10b981;
+  --emeraldHover: #0ea371;
+  --btnAltText: #10b981;
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  --page: radial-gradient(
+      1200px 800px at 10% -10%,
+      #0f172a 0%,
+      transparent 40%
+    ),
+    linear-gradient(180deg, #0a0a0a, #111113);
+  --card: #151517;
+  --text: #ffffff;
+  --muted: #c7c7c7;
+  --ring: rgba(255, 255, 255, 0.08);
+  --input-bg: #0f1012;
+  --input-text: #ffffff;
+  --placeholder: #9ca3af;
+  --translucent-surface: rgba(255, 255, 255, 0.03);
+  --btnAltText: #ffffff;
+}
+html,
+body {
+  height: 100%;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,\"Helvetica Neue\",Arial;
+  color: var(--text);
+  background: var(--page);
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Pill glass navbar */
+.nav-wrap {
+  position: fixed;
+  inset-inline: 0;
+  top: 16px;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+.nav-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.nav-sep {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 6px;
+  display: none;
+}
+@media (min-width: 640px) {
+  .nav-sep {
+    display: block;
+  }
+}
+
+/* Dropdowns */
+.menu-item {
+  position: relative;
+}
+.dropdown {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px) scale(0.98);
+  top: 52px;
+  width: min(640px, 90vw);
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.72));
+  -webkit-backdrop-filter: blur(60px) saturate(200%) brightness(0.65);
+  backdrop-filter: blur(60px) saturate(200%) brightness(0.65);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+}
+.menu-item:hover .dropdown,
+.menu-item:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+.dropdown a {
+  font-size: 14px;
+  color: #f1f5f9;
+}
+.dropdown a:hover {
+  color: #fff;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.grid-2 .card {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--ring);
+  background: var(--translucent-surface);
+}
+.card img {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  filter: brightness(0.9);
+}
+.card h4 {
+  margin: 10px 10px 2px;
+  font-size: 14px;
+}
+.card p {
+  margin: 0 10px 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Sections */
+main {
+  padding-top: 180px;
+  padding-bottom: 48px;
+}
+/* Spline embed container */
+.spline-container { height: 50vh; max-height: 50vh; width: 100%; margin: 10% auto 24px; overflow: hidden }
+.spline-container spline-viewer { display: block; width: 100%; height: 100% }
+section {
+  scroll-margin-top: 180px;
+}
+.hero {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: left;
+  padding: 0 0 24px;
+  margin-top: 10%;
+}
+.hero h1 {
+  font-size: 56px;
+  line-height: 1.05;
+  margin: 0 0 12px;
+  text-shadow: none;
+  letter-spacing: 0.5px;
+}
+.hero p {
+  color: var(--muted);
+  margin: 0 0 24px;
+  max-width: 800px;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    margin-top: 30%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero {
+    margin-top: 20%;
+  }
+}
+
+/* Gallery grid */
+.gallery {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 900px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+.thumb {
+  height: 240px;
+  border-radius: 0;
+  overflow: hidden;
+  border: 1px solid var(--ring);
+  box-shadow: none;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image hover effects */
+.thumb { transition: none }
+.thumb img { transition: none }
+.thumb:hover { transform: none }
+.thumb:hover img { transform: none; filter: none }
+
+/* Dropdown card image hover */
+.grid-2 .card { transition: none }
+.card img { transition: none }
+.grid-2 .card:hover { transform: none; box-shadow: none }
+.grid-2 .card:hover img { transform: none; filter: none }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--emerald);
+  color: #fff;
+  font-weight: 600;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--emeraldHover);
+}
+
+/* Contact block */
+.contact {
+  margin-top: 28px;
+  padding: 16px 20px;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  color: var(--muted);
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+  border-radius: 0;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contact::after {
+  content: none;
+}
+.contact h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 28px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact .row span {
+  font-size: 20px;
+  color: var(--text);
+}
+
+/* Dark theme tuning for glass card */
+[data-theme="dark"] .contact {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Floating WhatsApp */
+.contact-form{width:100%; max-width:720px; margin:10px auto 0; display:grid; gap:12px; text-align:left}
+.contact-form .fields{display:grid; gap:12px}
+@media (min-width: 640px){.contact-form .fields{grid-template-columns:1fr 1fr}}
+.contact-form label{display:grid; gap:6px; font-size:14px; color:var(--muted)}
+.contact-form input,.contact-form textarea{width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--ring); background:var(--input-bg); color:var(--input-text)}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--placeholder)}
+.contact-form .actions{display:flex; gap:10px; align-items:center}
+.btn.alt{background:transparent; border:1px solid var(--emerald); color:var(--btnAltText); box-shadow:none}
+.btn.alt:hover{background:rgba(16,185,129,0.12)}
+.fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+}
+.fab a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: var(--emerald);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.45);
+}
+.fab a:hover {
+  background: var(--emeraldHover);
+}
+.fab .only-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 640px) {
+  .fab a span {
+    display: inline;
+  }
+  .fab .only-icon {
+    display: flex;
+  }
+}
+
+/* Compact navbar on small screens */
+@media (max-width: 640px) {
+  .nav-wrap { top: 8px; }
+  .nav { gap: 4px; padding: 6px 8px; }
+  .nav-btn { padding: 6px 10px; font-size: 12px; }
+  .nav .btn { padding: 8px 12px; gap: 8px; font-size: 14px; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35); }
+  .dropdown { top: 44px; }
+  .ico { width: 18px; height: 18px; }
+}
+
+/* Hamburger menu for mobile */
+.hamburger { display: none; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 0; border: none; background: transparent; color: #fff; cursor: pointer; transition: opacity .18s ease, transform .18s ease }
+.hamburger svg { width: 18px; height: 18px }
+@media (max-width: 640px) {
+  .hamburger { display: inline-flex }
+  .nav > .menu-item, .nav > .btn, .nav > .nav-sep, .nav > #theme-toggle { display: none }
+}
+
+/* removed empty rule */
+@media (max-width: 640px) {
+  .mobile-menu { position: fixed; left: 8px; right: 8px; top: 56px; z-index: 55; background: var(--card); color: var(--text); border: 1px solid var(--ring); border-radius: 0; box-shadow: none; padding: 10px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px) scale(0.98); transition: opacity .2s ease, transform .2s ease, visibility .2s ease }
+  .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0) scale(1) }
+  .mobile-menu a { display: block; padding: 10px 8px; border-bottom: 1px solid var(--ring); font-size: 14px }
+  .mobile-menu a:last-child { border-bottom: 0 }
+}
+
+/* Reduce mobile WhatsApp FAB padding significantly */
+@media (max-width: 640px) {
+  .fab a { padding: 8px 10px; gap: 8px; font-size: 13px }
+}
+
+/* Icons */
+.ico {
+  width: 20px;
+  height: 20px;
+}
+
+/* Inline style overrides moved from HTML */
+.dropdown .container {
+  padding: 0;
+}
+#gallery {
+  margin-top: 26px;
+}
