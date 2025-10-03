@@ -42,9 +42,13 @@ html {
 }
 body {
   margin: 0;
-  font-family: "Playfair Display", ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,\"Helvetica Neue\",Arial;
+  font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,\"Helvetica Neue\",Arial;
   color: var(--text);
   background: var(--page);
+}
+
+h1 {
+  font-family: "Playfair Display",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,\"Helvetica Neue\",Arial;
 }
 img {
   display: block;
