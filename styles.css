@@ -199,7 +199,7 @@ section {
   box-shadow: none;
   text-align: center;
   padding: 0 0 24px;
-  margin-top: 10%;
+  margin-top: 0;
 }
 .hero h1 {
   font-size: 56px;
@@ -324,8 +324,9 @@ section {
 }
 .hero-subtitle {
   color: var(--muted);
-  margin: 0 !important;
+  margin: 1% 0 0 !important;
   max-width: 720px;
+
 }
 
 /* Services table */
@@ -348,6 +349,15 @@ section {
 .services-table thead th {
   background: var(--card);
   font-weight: 700;
+}
+.services-table thead th { transition: background-color .18s ease, color .18s ease }
+html:not([data-theme="dark"]) .services-table thead th {
+  background: #7b451f; /* brown in light mode */
+  color: #ffffff;
+}
+[data-theme="dark"] .services-table thead th {
+  background: var(--card);
+  color: var(--text);
 }
 .services-table th[scope="row"] {
   width: 28%;
@@ -394,11 +404,10 @@ section {
 .mt-10p { margin-top: 10% }
 
 /* Contact section (moved from inline) */
-.contact-section { border: 0.5px solid lightgray; padding-left: 3% }
+.contact-section { border: 0.5px solid lightgray; padding-left: 2%; color: white; background-color: #783f05;}
 
 /* Services table hover animation */
-.services-table tbody tr { transition: background-color .18s ease, transform .18s ease }
-.services-table tbody tr:hover { background-color: rgba(16,185,129,0.06); transform: translateY(-1px) }
+.services-table tbody tr { transition: background-color .18s ease, transform .18s ease } .services-table tbody tr:hover { background-color: #783f05; transform: translateY(-1px); color: white }
 
 /* Image hover animation (gallery thumbs and dropdown/cards) */
 .thumb, .grid-2 .card { transition: transform .2s ease, box-shadow .2s ease }
