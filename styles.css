@@ -402,6 +402,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 /* Index inline-style replacements */
 .section-title { font-size: 130%; color: #7b451f }
 .mt-10p { margin-top: 10% }
+@media (max-width: 640px) { .mt-10p { margin-top: 0 } }
 
 /* Contact section (moved from inline) */
 .contact-section { border: 0.5px solid lightgray; padding-left: 2%; color: white; background-color: #783f05;}
@@ -418,17 +419,10 @@ html:not([data-theme="dark"]) .services-table thead th {
 .grid-2 .card:hover img { transform: scale(1.03) }
 
 @media (max-width: 640px) {
-  .hero {
-    margin-top: 30%;
+  .wordmark {
+    padding-top: 30%;
   }
 }
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  .hero {
-    margin-top: 20%;
-  }
-}
-
 /* Gallery grid */
 .gallery {
   display: grid;
