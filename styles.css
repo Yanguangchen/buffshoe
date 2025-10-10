@@ -2,7 +2,7 @@
   /* Light theme defaults */
   --page: #f7f5ef;
   --card: #ffffff;
-  --text: #111827;
+  --text: #7b451f;
   --muted: #4b5563;
   --ring: rgba(0, 0, 0, 0.12);
   --input-bg: #ffffff;
@@ -349,9 +349,9 @@ section {
   margin: 4px 0 0;
 }
 .hero-subtitle {
-  color: var(--muted);
   margin: 1% 0 0 !important;
   max-width: 720px;
+  color: var(--text)
 }
 
 /* Services table */
