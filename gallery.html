@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shoe Shine and Cleaning</title>
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          if (saved === "dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+IN:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="icon.png" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#7b451f" />
+  </head>
+  <body>
+    <!-- Glass pill navbar with dropdowns -->
+    <div class="nav-wrap">
+      <nav class="nav" aria-label="Main">
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" />
+          </svg>
+        </button>
+        <div class="menu-item">
+          <a class="nav-btn" href="our-services.html">Services</a>
+        </div>
+        <div class="menu-item">
+          <a class="nav-btn" href="index.html">Home</a>
+        </div>
+
+        <div class="menu-item">
+          <a class="nav-btn" href="gallery.html">Gallery</a>
+        </div>
+
+        <div class="menu-item">
+          <a class="nav-btn" href="about-us.html">About Us</a>
+        </div>
+
+        <div class="nav-sep"></div>
+        <button
+          class="nav-btn"
+          id="theme-toggle"
+          aria-pressed="false"
+          aria-label="Toggle color scheme"
+        >
+          Light
+        </button>
+      </nav>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <a href="#services">Home</a>
+      <a href="our-services.html">Our Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about-us.html">About Us</a>
+      <a href="index.html">Home</a>
+      <a href="https://wa.me/6591870187" target="_blank" rel="noopener"
+        >WhatsApp</a
+      >
+    </div>
+    <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.70/build/spline-viewer.js"></script>
+  <div class="spline-container">
+    <spline-viewer loading-anim-type="spinner-big-dark" url="https://prod.spline.design/O7srxNeUrU5UxUHB/scene.splinecode"></spline-viewer>  </div> -->
+    <main class="container" style="padding: 0 !important">
+      <section class="hero" id="services"></section>
+    </main>
+
+    <main class="container">
+      <h1 class="section-title">Our Showcase</h1>
+      <section class="showcase" aria-label="Before and after gallery">
+        <div class="showcase-grid">
+          <!-- Card 1 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-01-before.jpg"
+                alt="Before - Adidas NMD CS2 Primeknit ‘Ronin’ with severe yellowing"
+              />
+              <img
+                src="assets/showcase-01-after.jpg"
+                alt="After - Adidas NMD CS2 Primeknit ‘Ronin’ restored to original condition"
+              />
+            </div>
+            <p class="case-caption">
+              Reversed severe yellowing of a pair of Adidas NMD CS2 Primeknit
+              ‘Ronin’ shoes and restored it back to its original condition.
+            </p>
+          </article>
+          <!-- Card 2 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-02-before.jpg"
+                alt="Before - Nike Air Force Ones with suede wear and yellowed soles"
+              />
+              <img
+                src="assets/showcase-02-after.jpg"
+                alt="After - Nike Air Force Ones with refreshed suede and de-yellowed soles"
+              />
+            </div>
+            <p class="case-caption">
+              Refreshed the suede surfaces and reversed the severe yellowing of
+              the sole and mid sole of this pair of Nike Air Force Ones.
+            </p>
+          </article>
+          <!-- Card 3 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-03-before.jpg"
+                alt="Before - ON Cloudrunner 2 with heavy dirt on white uppers"
+              />
+              <img
+                src="assets/showcase-03-after.jpg"
+                alt="After - ON Cloudrunner 2 deeply cleansed and waterproofed"
+              />
+            </div>
+            <p class="case-caption">
+              Deep cleansing of a white pair of ON Cloudrunner 2 running shoes,
+              with a waterproofing finish.
+            </p>
+          </article>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="showcase-grid">
+          <!-- Card 4 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-04-before.jpg"
+                alt="Before - Kenford Oxfords lacking shine"
+              />
+              <img
+                src="assets/showcase-04-after.jpg"
+                alt="After - Kenford Oxfords with thorough mirror shine"
+              />
+            </div>
+            <p class="case-caption">
+              Performed a thorough mirror shine on black pair of Kenford
+              Oxfords.
+            </p>
+          </article>
+          <!-- Card 5 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-05-before.jpg"
+                alt="Before - Maroon toe cap Derbys with faded colour"
+              />
+              <img
+                src="assets/showcase-05-after.jpg"
+                alt="After - Maroon toe cap Derbys nourished with high shine"
+              />
+            </div>
+            <p class="case-caption">
+              Thorough nourishment and colour restoration of this pair of maroon
+              toe cap Derbys, finishing off with a high shine.
+            </p>
+          </article>
+          <!-- Card 6 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-06-before.jpg"
+                alt="Before - Cole Haan tasselled loafers dull finish"
+              />
+              <img
+                src="assets/showcase-06-after.jpg"
+                alt="After - Cole Haan tasselled loafers with high shine and conditioned leather"
+              />
+            </div>
+            <p class="case-caption">
+              Applied a high shine to this black pair of Cole Haan tasselled
+              loafers, while thoroughly conditioning the leather.
+            </p>
+          </article>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="showcase-grid">
+          <!-- Card 7 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-07-before.jpg"
+                alt="Before - ECCO sneakers with severely-yellowed mid-soles"
+              />
+              <img
+                src="assets/showcase-07-after.jpg"
+                alt="After - ECCO sneakers restored off-white mid-soles"
+              />
+            </div>
+            <p class="case-caption">
+              Cleaned and treated the severely-yellowed mid-soles of a pair of
+              ECCO sneakers, restoring it to its original off-white colour.
+            </p>
+          </article>
+          <!-- Card 8 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-08-before.jpg"
+                alt="Before - ECCO Multi-Vent Gore-Tex trainers with scuffed grey panels"
+              />
+              <img
+                src="assets/showcase-08-after.jpg"
+                alt="After - ECCO Multi-Vent Gore-Tex trainers deep cleansed with colour restored panels"
+              />
+            </div>
+            <p class="case-caption">
+              Deep cleansing of a pair of ECCO Multi-Vent Gore-Tex trainers with
+              colour restoration on its scuffed grey panels of the shoe uppers.
+            </p>
+          </article>
+          <!-- Card 9 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-09-before.jpg"
+                alt="Before - White Korean street style canvas shoes with stains"
+              />
+              <img
+                src="assets/showcase-09-after.jpg"
+                alt="After - White Korean street style canvas shoes thoroughly scrubbed"
+              />
+            </div>
+            <p class="case-caption">
+              Thoroughly scrubbed through a pair of white Korean street style
+              canvas shoes.
+            </p>
+          </article>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="showcase-grid">
+          <!-- Card 10 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-10-before.jpg"
+                alt="Before - Deep blue TOD’S penny loafers well-worn"
+              />
+              <img
+                src="assets/showcase-10-after.jpg"
+                alt="After - Deep blue TOD’S penny loafers conditioned with high shine"
+              />
+            </div>
+            <p class="case-caption">
+              Conditioned a well-worn pair of deep blue TOD’S penny loafers and
+              finished off with a high shine.
+            </p>
+          </article>
+          <!-- Card 11 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-11-before.jpg"
+                alt="Before - Black Bally toe cap Derbys lacking toe shine"
+              />
+              <img
+                src="assets/showcase-11-after.jpg"
+                alt="After - Black Bally toe cap Derbys conditioned with toe cap high shine"
+              />
+            </div>
+            <p class="case-caption">
+              Conditioned a pair of black Bally toe cap Derbys and finished off
+              with a toe cap high shine.
+            </p>
+          </article>
+          <!-- Card 12 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-12-before.jpg"
+                alt="Before - Leather slip-ons with dull finish"
+              />
+              <img
+                src="assets/showcase-12-after.jpg"
+                alt="After - Leather slip-ons nourished and finished with high shine"
+              />
+            </div>
+            <p class="case-caption">
+              Nourished the shoe leather and finished off these leather slip-ons
+              with a high shine.
+            </p>
+          </article>
+        </div>
+
+        <!-- Row 5 -->
+        <div class="showcase-grid">
+          <!-- Card 13 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-13-before.jpg"
+                alt="Before - Square-toe Hush Puppies Derbys with dull uppers"
+              />
+              <img
+                src="assets/showcase-13-after.jpg"
+                alt="After - Square-toe Hush Puppies Derbys with all-round medium shine"
+              />
+            </div>
+            <p class="case-caption">
+              Elevated the look of these square-toe Hush Puppies Derbys with
+              all-round medium shine.
+            </p>
+          </article>
+          <!-- Card 14 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-14-before.jpg"
+                alt="Before - Gold-silver leather Oxfords aged and dull"
+              />
+              <img
+                src="assets/showcase-14-after.jpg"
+                alt="After - Gold-silver leather Oxfords cleaned and gold colour restored"
+              />
+            </div>
+            <p class="case-caption">
+              Revived an old pair of gold-silver leather Oxfords through
+              cleaning and gold colour restoration.
+            </p>
+          </article>
+          <!-- Card 15 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-15-before.jpg"
+                alt="Before - Composite PVC-leather-brocade shoes with faded gold, red and black portions"
+              />
+              <img
+                src="assets/showcase-15-after.jpg"
+                alt="After - Composite PVC-leather-brocade shoes with restored colours"
+              />
+            </div>
+            <p class="case-caption">
+              Performed colour restoration to a composite PVC-leather-brocade
+              shoes, reviving its faded and scuffed gold, red and black portions
+              to its former glory.
+            </p>
+          </article>
+        </div>
+
+        <!-- Row 6 -->
+        <div class="showcase-grid">
+          <!-- Card 16 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-16-before.jpg"
+                alt="Before - Bally brogues scuffed and dull"
+              />
+              <img
+                src="assets/showcase-16-after.jpg"
+                alt="After - Bally brogues buffed with minor colour restoration and toe cap shine"
+              />
+            </div>
+            <p class="case-caption">
+              Buffed up and performed minor colour restoration on a pair of
+              Bally brogues, and finished with a toe cap shine.
+            </p>
+          </article>
+          <!-- Card 17 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/showcase-17-before.jpg"
+                alt="Before - Comme Des Garcons cracked leather slip-ons matte gold finish"
+              />
+              <img
+                src="assets/showcase-17-after.jpg"
+                alt="After - Comme Des Garcons cracked leather slip-ons conditioned and buffed"
+              />
+            </div>
+            <p class="case-caption">
+              Cleaned and nourished the leather of these brown toe cap Derbys,
+              finishing with a medium shine.
+            </p>
+          </article>
+        </div>
+
+        <div class="showcase-grid">
+          <!-- Card 1 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/shoe1_before.jpg"
+                alt="Before cleaning - Adidas NMD CS2"
+              />
+              <img
+                src="assets/shoe1_after.jpg"
+                alt="After cleaning - Adidas NMD CS2"
+              />
+            </div>
+            <p class="case-caption">
+              Reduced severe yellowing of a pair of Adidas NMD CS2 Primeknit
+              “Ronin”; restored close to original condition.
+            </p>
+          </article>
+          <!-- Card 2 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/shoe2_before.jpg"
+                alt="Before restoration - Nike Air Force One"
+              />
+              <img
+                src="assets/shoe2_after.jpg"
+                alt="After restoration - Nike Air Force One"
+              />
+            </div>
+            <p class="case-caption">
+              Refreshed suede surfaces and reversed sole yellowing on this pair
+              of Nike Air Force Ones.
+            </p>
+          </article>
+          <!-- Card 3 -->
+          <article class="case-card">
+            <div class="case-images">
+              <img
+                src="assets/shoe3_before.jpg"
+                alt="Before deep clean - On Cloudrunner 2"
+              />
+              <img
+                src="assets/shoe3_after.jpg"
+                alt="After deep clean - On Cloudrunner 2"
+              />
+            </div>
+            <p class="case-caption">
+              Deeply cleansed a pair of On Cloudrunner 2, finished with a
+              waterproofing coat.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© BUFF Shoe Care. All rights reserved.</p>
+        <p>hello@buffwork.com • +65 91870187</p>
+        <p>Business registration number: XXXXXXXXX</p>
+      </div>
+    </footer>
+
+    <!-- Floating WhatsApp button bottom right -->
+    <div class="fab">
+      <a
+        href="https://wa.me/6591870187"
+        target="_blank"
+        rel="noopener"
+        aria-label="Chat on WhatsApp"
+      >
+        <div class="only-icon">
+          <svg
+            class="ico"
+            viewBox="0 0 32 32"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M19.11 17.14c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.47-1.77-1.64-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.57-.48-.5-.67-.5-.17-.01-.37-.02-.57-.02-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.9 1.22 3.09.15.2 2.1 3.2 5.08 4.48.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.43.25-.71.25-1.32.17-1.44-.07-.12-.27-.2-.57-.35z"
+            />
+          </svg>
+        </div>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+
+    <script>
+      (function () {
+        var toggle = document.getElementById("theme-toggle");
+        var burger = document.getElementById("hamburger");
+        var menu = document.getElementById("mobile-menu");
+        function isDark() {
+          return document.documentElement.getAttribute("data-theme") === "dark";
+        }
+        function updateLabel() {
+          if (toggle) {
+            toggle.textContent = isDark() ? "Dark" : "Light";
+            toggle.setAttribute("aria-pressed", String(isDark()));
+          }
+        }
+        function setMode(dark) {
+          if (dark) {
+            document.documentElement.setAttribute("data-theme", "dark");
+            try {
+              localStorage.setItem("theme", "dark");
+            } catch (e) {}
+          } else {
+            document.documentElement.removeAttribute("data-theme");
+            try {
+              localStorage.removeItem("theme");
+            } catch (e) {}
+          }
+          updateLabel();
+        }
+        updateLabel();
+        if (toggle)
+          toggle.addEventListener("click", function () {
+            setMode(!isDark());
+          });
+        if (burger && menu) {
+          function closeMenu() {
+            menu.classList.remove("open");
+            burger.setAttribute("aria-expanded", "false");
+            menu.setAttribute("hidden", "");
+          }
+          function openMenu() {
+            menu.classList.add("open");
+            burger.setAttribute("aria-expanded", "true");
+            menu.removeAttribute("hidden");
+          }
+          burger.addEventListener("click", function () {
+            if (menu.classList.contains("open")) closeMenu();
+            else openMenu();
+          });
+          document.addEventListener("click", function (e) {
+            if (!menu.contains(e.target) && !burger.contains(e.target))
+              closeMenu();
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -13,6 +13,9 @@
   --emerald: #10b981;
   --emeraldHover: #0ea371;
   --btnAltText: #10b981;
+  /* Showcase band colors */
+  --showcaseTan: #8a7760; /* earth-tan */
+  --showcaseGray: #595c62; /* neutral gray */
 }
 
 /* Dark theme overrides */
@@ -79,7 +82,7 @@ a {
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: rgba(0, 0, 0, 0.45);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
@@ -251,7 +254,8 @@ section {
   position: absolute;
   inset: -10px; /* extend to avoid edge clipping after blur */
   background: url("background.png") center / cover no-repeat;
-  filter: blur(5px);
+  /* show the hero image crisply like the mockup (remove blur) */
+  filter: none;
   z-index: -1;
 }
 @media (max-width: 640px) {
@@ -351,7 +355,37 @@ section {
 .hero-subtitle {
   margin: 1% 0 0 !important;
   max-width: 720px;
-  color: var(--text)
+  color: var(--text);
+}
+
+/* New content block under the hero image */
+.hero-content {
+  padding: 24px 24px 32px;
+  text-align: left;
+}
+.hero-content .hero-subtitle {
+  margin-top: 0 !important;
+}
+
+/* WhatsApp outline button to match mockup */
+.btn.whatsapp-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--ring);
+  box-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin-top: 16px;
+  border-radius: 0;
+}
+.btn.whatsapp-outline:hover {
+  background: var(--translucent-surface);
+}
+/* Force square corners for floating WhatsApp button (including icon-only on mobile) */
+.fab a,
+.fab .only-icon {
+  border-radius: 0;
 }
 
 /* Services table */
@@ -828,6 +862,52 @@ html:not([data-theme="dark"]) .services-table thead th {
   margin: 6px 0;
 }
 
+/* Showcase section */
+.showcase {
+  margin-top: 32px;
+}
+.showcase-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+  /* full-bleed color band */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 24px;
+}
+@media (min-width: 900px) {
+  .showcase-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+.showcase > .showcase-grid:nth-of-type(odd) {
+  background: var(--showcaseTan);
+}
+.showcase > .showcase-grid:nth-of-type(even) {
+  background: var(--showcaseGray);
+}
+.case-card {
+  background: var(--card);
+  border: 1px solid var(--ring);
+  padding: 14px;
+}
+.case-images {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 8px;
+}
+.case-images img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #ddd;
+}
+.case-caption {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
 /* About page */
 .about h1 {
   font-size: 40px;
