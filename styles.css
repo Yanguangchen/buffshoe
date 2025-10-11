@@ -1,6 +1,6 @@
 :root {
   /* Light theme defaults */
-  --page: #f7f5ef;
+  --page: #ffffff;
   --card: #ffffff;
   --text: #7b451f;
   --muted: #4b5563;
@@ -13,6 +13,8 @@
   --emerald: #10b981;
   --emeraldHover: #0ea371;
   --btnAltText: #10b981;
+  /* Brand color that stays consistent across themes */
+  --brand: #7b451f;
   /* Showcase band colors */
   --showcaseTan: #8a7760; /* earth-tan */
   --showcaseGray: #595c62; /* neutral gray */
@@ -31,6 +33,8 @@
   --placeholder: #9ca3af;
   --translucent-surface: rgba(255, 255, 255, 0.03);
   --btnAltText: #ffffff;
+  /* Keep brand brown in dark mode for contrast on white FAB */
+  --brand: #7b451f;
 }
 html,
 body {
@@ -707,10 +711,13 @@ html:not([data-theme="dark"]) .services-table thead th {
   align-items: center;
   gap: 10px;
   padding: 14px 18px;
-  border-radius: 999px;
-  background: var(--emerald);
-  color: #fff;
-  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.45);
+  border-radius: 0;
+  background: white;
+  color: var(--brand);
+  border: 1px solid var(--brand);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 600;
 }
 .fab a:hover {
   background: var(--emeraldHover);
@@ -723,6 +730,7 @@ html:not([data-theme="dark"]) .services-table thead th {
   align-items: center;
   justify-content: center;
 }
+
 @media (max-width: 640px) {
   .fab a span {
     display: inline;
@@ -798,12 +806,18 @@ html:not([data-theme="dark"]) .services-table thead th {
     right: 8px;
     top: 56px;
     z-index: 55;
-    background: var(--card);
-    color: var(--text);
-    border: 1px solid var(--ring);
-    border-radius: 0;
-    box-shadow: none;
-    padding: 10px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.82),
+      rgba(0, 0, 0, 0.72)
+    );
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    backdrop-filter: blur(30px) saturate(180%);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    padding: 12px;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -819,8 +833,9 @@ html:not([data-theme="dark"]) .services-table thead th {
   .mobile-menu a {
     display: block;
     padding: 10px 8px;
-    border-bottom: 1px solid var(--ring);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     font-size: 14px;
+    color: #f1f5f9;
   }
   .mobile-menu a:last-child {
     border-bottom: 0;
@@ -830,7 +845,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 /* Reduce mobile WhatsApp FAB padding significantly */
 @media (max-width: 640px) {
   .fab a {
-    padding: 8px 10px;
+    padding: 6px 8px;
     gap: 8px;
     font-size: 13px;
   }
@@ -860,6 +875,16 @@ html:not([data-theme="dark"]) .services-table thead th {
 }
 .site-footer p {
   margin: 6px 0;
+}
+
+/* Responsive top spacing for inner pages */
+.page-top {
+  margin-top: 15%;
+}
+@media (max-width: 640px) {
+  .page-top {
+    margin-top: 20%;
+  }
 }
 
 /* Showcase section */
