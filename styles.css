@@ -261,6 +261,8 @@ section {
   /* show the hero image crisply like the mockup (remove blur) */
   filter: none;
   z-index: -1;
+  will-change: background-position;
+  background-position: calc(50% + var(--bgShiftX, 0px)) calc(50% + var(--bgShiftY, 0px));
 }
 @media (max-width: 640px) {
   .wordmark {
@@ -318,6 +320,11 @@ section {
 .mobile-menu a,
 .fab {
   animation: fade-in 0.6s ease both;
+}
+
+.site-footer {
+  background-color: #7b451f;
+  color: white !important;
 }
 
 /* Stagger hero content (excluding the animated wordmark) */
@@ -857,6 +864,23 @@ html:not([data-theme="dark"]) .services-table thead th {
   height: 20px;
 }
 
+/* Loading throbber */
+.loading {
+  display: grid;
+  place-items: center;
+  height: 180px;
+  color: white !important;
+}
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--ring);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* Inline style overrides moved from HTML */
 .dropdown .container {
   padding: 0;
@@ -914,7 +938,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 .case-card {
   background: var(--card);
   border: 1px solid var(--ring);
-  padding: 14px;
+  padding: 15px 10px;
 }
 .case-images {
   display: grid;
@@ -927,10 +951,45 @@ html:not([data-theme="dark"]) .services-table thead th {
   object-fit: cover;
   background: #ddd;
 }
+.case-images .img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.case-images .img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.case-images .img-wrap::after {
+  content: attr(data-label);
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 12px;
+  line-height: 1;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 4px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.case-images .img-wrap:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.85);
+}
+.case-images .img-wrap:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
 .case-caption {
   margin: 10px 0 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 100%;
   line-height: 1.5;
 }
 /* About page */

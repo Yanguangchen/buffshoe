@@ -42,14 +42,22 @@
         article.className = "case-card";
         const images = document.createElement("div");
         images.className = "case-images";
+        const beforeWrap = document.createElement("div");
+        beforeWrap.className = "img-wrap";
+        beforeWrap.setAttribute('data-label','before');
         const before = document.createElement("img");
         before.src = item.beforeData || item.beforeUrl;
         before.alt = item.beforeAlt || `Before - ${item.title || "Restoration"}`;
+        beforeWrap.appendChild(before);
+        const afterWrap = document.createElement("div");
+        afterWrap.className = "img-wrap";
+        afterWrap.setAttribute('data-label','after');
         const after = document.createElement("img");
         after.src = item.afterData || item.afterUrl;
         after.alt = item.afterAlt || `After - ${item.title || "Restoration"}`;
-        images.appendChild(before);
-        images.appendChild(after);
+        afterWrap.appendChild(after);
+        images.appendChild(beforeWrap);
+        images.appendChild(afterWrap);
         const cap = document.createElement("p");
         cap.className = "case-caption";
         cap.textContent = item.caption || "";
@@ -62,11 +70,18 @@
         const root = document.getElementById("showcase-root");
         if (!root) return;
         root.innerHTML = "";
+        // Loading UI
+        const loadingRow = document.createElement('div');
+        loadingRow.className = 'showcase-grid';
+        const loading = document.createElement('div');
+        loading.className = 'loading';
+        const spinner = document.createElement('div'); spinner.className='spinner';
+        loading.appendChild(spinner); loadingRow.appendChild(loading); root.appendChild(loadingRow);
         if (!navigator.onLine) {
           const p = document.createElement("p");
           p.className = "case-caption";
           p.textContent = "You appear to be offline. Please reconnect to load the gallery.";
-          root.appendChild(p);
+          root.innerHTML = ""; root.appendChild(p);
           return;
         }
         try {
@@ -80,6 +95,7 @@
             root.appendChild(p);
             return;
           }
+          root.innerHTML = "";
           for (const group of chunk(items, 3)) {
             const row = document.createElement("div");
             row.className = "showcase-grid";
@@ -88,7 +104,7 @@
           }
         } catch (e) {
           console.error(e);
-          const p = document.createElement("p");
+          root.innerHTML = ""; const p = document.createElement("p");
           p.className = "case-caption";
           p.textContent = "Unable to load the gallery right now.";
           root.appendChild(p);

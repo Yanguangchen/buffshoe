@@ -82,7 +82,7 @@
     <main class="container" style="padding: 0 !important">
       <section class="hero" id="services">
         <div class="hero-wrap">
-          <div class="wordmark">Buff</div>
+          <div class="wordmark" id="wordmark">Buff</div>
         </div>
       </section>
       <section class="hero-content container">
@@ -118,7 +118,7 @@
     </main>
 
     <main class="container">
-      <h1 class="section-title">Our Showcase</h1>
+      <h1 class="section-title" style="font-size: 250%;">Our Showcase</h1>
       <section class="showcase" aria-label="Before and after gallery" id="home-showcase-root">
         <div class="showcase-grid">
           <!-- Card 1 -->
@@ -487,9 +487,16 @@
           </article>
         </div>
       </section>
-      <h1 class="section-title">The Services:</h1>
+      
+  </main>
+
+  <main class="container page-top">
+    <section class="our-services">
+      <h1>Our Services</h1>
+
+      <h2>Dress Shoes</h2>
       <div class="services-table-wrap">
-        <table class="services-table" aria-describedby="services-note">
+        <table class="services-table" aria-label="Dress shoe services">
           <thead>
             <tr>
               <th scope="col">Service</th>
@@ -499,38 +506,68 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">BUFF’s Dress Shoe Deep Shine</th>
+              <th scope="row">Express Shine</th>
+              <td>Cleaning + Shoe cream + Waxing and shine</td>
+              <td class="price">$10</td>
+            </tr>
+            <tr>
+              <th scope="row">Executive Shine</th>
               <td>
-                Cleaning and stripping old wax layers (if any) + Leather
-                conditioning and nourishment + Shoe cream colour restoration +
-                Waxing and shining (medium or high shine)
+                Strip old wax + Deep clean + 8-hour conditioning + Shoe cream
+                + Waxing and shine
               </td>
-              <td class="price">S$XX</td>
+              <td class="price">$40</td>
             </tr>
             <tr>
-              <th scope="row">BUFF’s Sneaker Revival Clean</th>
+              <th scope="row">Platinum Shine</th>
               <td>
-                Thorough cleaning and washing of sneaker uppers, midsoles,
-                soles, insoles and shoe laces + Protective water proofing
+                Executive Shine + Mirror/medium shine finish + Edge dressing
               </td>
-              <td class="price">S$XX</td>
-            </tr>
-            <tr>
-              <th scope="row">Unyellowing of Sneaker Soles</th>
-              <td>Whitening restoration of yellowed soles and midsoles</td>
-              <td class="price">S$XX</td>
-            </tr>
-            <tr>
-              <th scope="row">Minor Restoration</th>
-              <td>Minor touch ups and repairs</td>
-              <td class="price">&gt;S$XX*</td>
+              <td class="price">$60</td>
             </tr>
           </tbody>
         </table>
-        <p id="services-note" class="services-note">
-          * Actual fee depends on restoration deliverables
-        </p>
       </div>
+
+      <h2>Sneakers</h2>
+      <div class="services-table-wrap">
+        <table class="services-table" aria-label="Sneaker services">
+          <thead>
+            <tr>
+              <th scope="col">Service</th>
+              <th scope="col">Description</th>
+              <th scope="col" class="price-col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Express Clean</th>
+              <td>Upper, mid and bottom soles + laces</td>
+              <td class="price">$10</td>
+            </tr>
+            <tr>
+              <th scope="row">Restart Clean</th>
+              <td>
+                Full clean including insoles, tongue, inner mesh + laces
+              </td>
+              <td class="price">$30</td>
+            </tr>
+            <tr>
+              <th scope="row">Reborn Clean</th>
+              <td>
+                Restart Clean + Unyellowing + Water repellent + Deodorising
+              </td>
+              <td class="price">$50</td>
+            </tr>
+            <tr>
+              <th scope="row">Water Repellent Spray</th>
+              <td>Protective water repellent coating</td>
+              <td class="price">$10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
     <footer class="site-footer">
@@ -619,6 +656,26 @@
               closeMenu();
           });
         }
+      // Mouse parallax for hero wordmark background vs text
+      var wm = document.getElementById('wordmark');
+      if (wm) {
+        var rect;
+        function handleMove(e){
+          rect = rect || wm.getBoundingClientRect();
+          var cx = rect.left + rect.width/2;
+          var cy = rect.top + rect.height/2;
+          var x = (e.clientX - cx) / rect.width; // ~ -0.5 .. 0.5
+          var y = (e.clientY - cy) / rect.height;
+          var bgShiftX = Math.max(-15, Math.min(15, -x * 30));
+          var bgShiftY = Math.max(-15, Math.min(15, -y * 30));
+          wm.style.setProperty('--bgShiftX', bgShiftX + 'px');
+          wm.style.setProperty('--bgShiftY', bgShiftY + 'px');
+          wm.style.transform = 'translate(' + (-bgShiftX*0.25).toFixed(2) + 'px,' + (-bgShiftY*0.25).toFixed(2) + 'px)';
+        }
+        function reset(){ wm.style.transform=''; wm.style.setProperty('--bgShiftX','0px'); wm.style.setProperty('--bgShiftY','0px'); }
+        window.addEventListener('mousemove', handleMove);
+        window.addEventListener('mouseout', function(e){ if (!wm.contains(e.relatedTarget)) reset(); });
+      }
       })();
     </script>
   <script type="module">
@@ -642,18 +699,25 @@
     function card(item){
       const article = document.createElement('article'); article.className = 'case-card';
       const images = document.createElement('div'); images.className='case-images';
-      const b = document.createElement('img'); b.src = item.beforeData || item.beforeUrl; b.alt = item.beforeAlt || `Before - ${item.title || 'Restoration'}`;
-      const a = document.createElement('img'); a.src = item.afterData || item.afterUrl; a.alt = item.afterAlt || `After - ${item.title || 'Restoration'}`;
-      images.appendChild(b); images.appendChild(a);
+      const bw = document.createElement('div'); bw.className='img-wrap'; bw.setAttribute('data-label','before');
+      const b = document.createElement('img'); b.src = item.beforeData || item.beforeUrl; b.alt = item.beforeAlt || `Before - ${item.title || 'Restoration'}`; bw.appendChild(b);
+      const aw = document.createElement('div'); aw.className='img-wrap'; aw.setAttribute('data-label','after');
+      const a = document.createElement('img'); a.src = item.afterData || item.afterUrl; a.alt = item.afterAlt || `After - ${item.title || 'Restoration'}`; aw.appendChild(a);
+      images.appendChild(bw); images.appendChild(aw);
       const cap = document.createElement('p'); cap.className='case-caption'; cap.textContent = item.caption || '';
       article.appendChild(images); article.appendChild(cap); return article;
     }
     async function renderHomeShowcase(){
       const root = document.getElementById('home-showcase-root'); if (!root) return; root.innerHTML='';
+      // Loading UI
+      const loadingRow = document.createElement('div'); loadingRow.className='showcase-grid';
+      const loading = document.createElement('div'); loading.className='loading';
+      const spinner = document.createElement('div'); spinner.className='spinner'; loading.appendChild(spinner); loadingRow.appendChild(loading); root.appendChild(loadingRow);
       try {
         const qy = query(collection(db,'gallery'), orderBy('order','asc'));
         const snap = await getDocs(qy);
         const items = snap.docs.map(d=>({id:d.id, ...d.data()}));
+        root.innerHTML='';
         for (const group of chunk(items,3)){
           const row = document.createElement('div'); row.className='showcase-grid';
           for (const it of group) row.appendChild(card(it));
