@@ -327,6 +327,38 @@ section {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.site-footer .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 16px;
+  text-align: left;
+}
+@media (max-width: 900px) {
+  .site-footer .container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+.footer-title {
+  font-family: "Playfair Display", ui-serif, Georgia, Times, serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+.footer-left p,
+.footer-right p {
+  margin: 6px 0;
+}
+.footer-btn {
+  display: inline-block;
+  margin-top: 16px;
+}
+.footer-note {
+  text-align: right;
+}
+@media (max-width: 900px) {
+  .footer-note { text-align: left; }
+}
 
 /* Stagger hero content (excluding the animated wordmark) */
 .hero-wrap > *:not(.wordmark) {
@@ -980,7 +1012,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 
 /* Responsive top spacing for inner pages */
 .page-top {
-  margin-top: 15%;
+  margin-top: 5%;
 }
 @media (max-width: 640px) {
   .page-top {
@@ -994,7 +1026,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 }
 .showcase-grid {
   display: grid;
-  gap: 24px;
+  gap: 13px;
   grid-template-columns: 1fr;
   /* full-bleed color band */
   margin-left: calc(50% - 50vw);
