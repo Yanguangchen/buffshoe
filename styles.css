@@ -367,12 +367,12 @@ section {
 .hero-subtitle {
   margin: 0 !important; /* remove outer white bars */
   padding: 1% 0; /* keep vertical spacing via padding */
-  max-width: 720px;
   color: #783f05;
   font-size: 100%;
   background-color: #f8f3e6;
-  padding-left: 2%;
-  text-align: center !important;
+  padding-left: 4%;
+  text-align: left !important;
+  width: 90% !important;
 }
 
 /* Upscale hero subtitle on 1920x1080+ screens */
@@ -403,7 +403,7 @@ section {
 }
 .hero-content .hero-subtitle {
   margin-top: 0 !important;
-  width: 100%;
+  width: 100%; 
   max-width: none;
   text-align: justify;
   text-justify: inter-word;
@@ -417,7 +417,7 @@ section {
 /* WhatsApp outline button to match mockup */
 .btn.whatsapp-outline {
   background: transparent;
-  color: var(--text);
+  color: #783f05;
   border: 1px solid var(--ring);
   box-shadow: none;
   text-transform: uppercase;
@@ -428,6 +428,13 @@ section {
 }
 .btn.whatsapp-outline:hover {
   background: var(--translucent-surface);
+}
+/* Center the hero WhatsApp button */
+.hero-content .btn.whatsapp-outline {
+  display: block;
+  width: max-content;
+  margin: 16px 0 0 0; /* align left */
+  margin-left: 4%;
 }
 /* Force square corners for floating WhatsApp button (including icon-only on mobile) */
 .fab a,
