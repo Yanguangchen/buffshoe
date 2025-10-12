@@ -16,7 +16,13 @@
     </script>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-      import { initializeFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+      import {
+        initializeFirestore,
+        collection,
+        getDocs,
+        query,
+        orderBy,
+      } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyCH1gJdghp8-9F_-Nu6CeFUdLt7Phz5XKQ",
@@ -25,15 +31,19 @@
         storageBucket: "buffworks-ba25a.appspot.com",
         messagingSenderId: "30729552717",
         appId: "1:30729552717:web:5d4d280877c44ac6102d04",
-        measurementId: "G-0WMFLVR59M"
+        measurementId: "G-0WMFLVR59M",
       };
 
       const app = initializeApp(firebaseConfig);
-      const db = initializeFirestore(app, { experimentalAutoDetectLongPolling: true, useFetchStreams: false });
+      const db = initializeFirestore(app, {
+        experimentalAutoDetectLongPolling: true,
+        useFetchStreams: false,
+      });
 
       function chunk(arr, size) {
         const out = [];
-        for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+        for (let i = 0; i < arr.length; i += size)
+          out.push(arr.slice(i, i + size));
         return out;
       }
 
@@ -44,14 +54,15 @@
         images.className = "case-images";
         const beforeWrap = document.createElement("div");
         beforeWrap.className = "img-wrap";
-        beforeWrap.setAttribute('data-label','before');
+        beforeWrap.setAttribute("data-label", "before");
         const before = document.createElement("img");
         before.src = item.beforeData || item.beforeUrl;
-        before.alt = item.beforeAlt || `Before - ${item.title || "Restoration"}`;
+        before.alt =
+          item.beforeAlt || `Before - ${item.title || "Restoration"}`;
         beforeWrap.appendChild(before);
         const afterWrap = document.createElement("div");
         afterWrap.className = "img-wrap";
-        afterWrap.setAttribute('data-label','after');
+        afterWrap.setAttribute("data-label", "after");
         const after = document.createElement("img");
         after.src = item.afterData || item.afterUrl;
         after.alt = item.afterAlt || `After - ${item.title || "Restoration"}`;
@@ -71,23 +82,28 @@
         if (!root) return;
         root.innerHTML = "";
         // Loading UI
-        const loadingRow = document.createElement('div');
-        loadingRow.className = 'showcase-grid';
-        const loading = document.createElement('div');
-        loading.className = 'loading';
-        const spinner = document.createElement('div'); spinner.className='spinner';
-        loading.appendChild(spinner); loadingRow.appendChild(loading); root.appendChild(loadingRow);
+        const loadingRow = document.createElement("div");
+        loadingRow.className = "showcase-grid";
+        const loading = document.createElement("div");
+        loading.className = "loading";
+        const spinner = document.createElement("div");
+        spinner.className = "spinner";
+        loading.appendChild(spinner);
+        loadingRow.appendChild(loading);
+        root.appendChild(loadingRow);
         if (!navigator.onLine) {
           const p = document.createElement("p");
           p.className = "case-caption";
-          p.textContent = "You appear to be offline. Please reconnect to load the gallery.";
-          root.innerHTML = ""; root.appendChild(p);
+          p.textContent =
+            "You appear to be offline. Please reconnect to load the gallery.";
+          root.innerHTML = "";
+          root.appendChild(p);
           return;
         }
         try {
           const q = query(collection(db, "gallery"), orderBy("order", "asc"));
           const snap = await getDocs(q);
-          const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
           if (items.length === 0) {
             const p = document.createElement("p");
             p.className = "case-caption";
@@ -104,7 +120,8 @@
           }
         } catch (e) {
           console.error(e);
-          root.innerHTML = ""; const p = document.createElement("p");
+          root.innerHTML = "";
+          const p = document.createElement("p");
           p.className = "case-caption";
           p.textContent = "Unable to load the gallery right now.";
           root.appendChild(p);
@@ -141,10 +158,10 @@
           </svg>
         </button>
         <div class="menu-item">
-          <a class="nav-btn" href="our-services.html">Services</a>
+          <a class="nav-btn" href="index.html">Home</a>
         </div>
         <div class="menu-item">
-          <a class="nav-btn" href="index.html">Home</a>
+          <a class="nav-btn" href="our-services.html">Services</a>
         </div>
 
         <div class="menu-item">
@@ -181,7 +198,11 @@
 
     <main class="container">
       <h1 class="section-title">Our Showcase</h1>
-      <section class="showcase" aria-label="Before and after gallery" id="showcase-root">
+      <section
+        class="showcase"
+        aria-label="Before and after gallery"
+        id="showcase-root"
+      >
         <div class="showcase-grid">
           <!-- Card 1 -->
           <article class="case-card">
