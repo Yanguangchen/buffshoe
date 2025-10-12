@@ -269,6 +269,8 @@
       const listSection = document.getElementById("list");
       const authStatus = document.getElementById("auth-status");
       const provider = new GoogleAuthProvider();
+      let currentEditId = null;
+      let currentEditData = null;
 
       function setAuthed(authed, user) {
         signinBtn.style.display = authed ? "none" : "";
@@ -442,16 +444,31 @@
               return;
             }
 
-            await addDoc(collection(db, "gallery"), {
-              title: title || null,
-              caption: caption || null,
-              order: isNaN(order) ? 0 : order,
-              beforeData: beforeData || null,
-              afterData: afterData || null,
-              createdAt: serverTimestamp(),
-            });
+            if (currentEditId) {
+              // keep old images if no new image chosen
+              const payload = {
+                title: title || null,
+                caption: caption || null,
+                order: isNaN(order) ? 0 : order,
+                beforeData: beforeData || (currentEditData && currentEditData.beforeData) || null,
+                afterData: afterData || (currentEditData && currentEditData.afterData) || null,
+              };
+              await updateDoc(doc(db, 'gallery', currentEditId), payload);
+            } else {
+              await addDoc(collection(db, "gallery"), {
+                title: title || null,
+                caption: caption || null,
+                order: isNaN(order) ? 0 : order,
+                beforeData: beforeData || null,
+                afterData: afterData || null,
+                createdAt: serverTimestamp(),
+              });
+            }
 
             e.target.reset();
+            currentEditId = null; currentEditData = null;
+            document.getElementById('saveBtn').textContent = 'Save Item';
+            document.getElementById('cancelEdit').style.display = 'none';
             await loadItems();
             alert("Saved");
           } catch (err) {

@@ -39,6 +39,8 @@
 html,
 body {
   height: 100%;
+  overflow-x: hidden;
+  background-color: #fffff2;
 }
 html {
   scroll-behavior: smooth;
@@ -68,7 +70,7 @@ a {
 }
 .container {
   max-width: 1100px;
-  margin: 0 auto;
+  margin: auto auto;
   padding: 0 24px;
 }
 
@@ -205,7 +207,7 @@ section {
   border-radius: 0;
   box-shadow: none;
   text-align: center;
-  padding: 0 0 24px;
+  padding: 0;
   margin-top: 0;
 }
 .hero h1 {
@@ -229,17 +231,16 @@ section {
 /* Homepage hero wireframe specifics */
 .hero-wrap {
   display: grid;
-  gap: 8px;
   justify-items: center;
+  overflow: none;
 }
 .wordmark {
   font-family: "Playfair Display Black", ui-serif, Georgia, Times, serif;
   font-size: 250px;
   line-height: 0.8;
   color: #ffffff;
-  margin-bottom: 1%;
   width: 100vw; /* span full viewport width */
-  font-weight: bold;
+  font-weight: 600;
   animation: wordmark-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   will-change: transform, opacity;
   display: block;
@@ -364,15 +365,34 @@ section {
   margin: 4px 0 0;
 }
 .hero-subtitle {
-  margin: 1% 0 0 !important;
+  margin: 0 !important; /* remove outer white bars */
+  padding: 1% 0; /* keep vertical spacing via padding */
   max-width: 720px;
   color: var(--text);
+  font-size: 100%;
+  background-color: #f8f3e6;
+  padding-left: 2%;
+}
+
+/* Upscale hero subtitle on 1920x1080+ screens */
+@media (min-width: 1920px) {
+  .hero-subtitle {
+    font-size: 170%;
+  }
 }
 
 /* New content block under the hero image */
 .hero-content {
   padding: 24px 24px 32px;
   text-align: left;
+  background-color: #f8f3e6;
+}
+.hero-content.container {
+  max-width: 100vw !important;
+  width: 100vw;
+  /* full-bleed background across viewport */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 .hero-content .hero-subtitle {
   margin-top: 0 !important;
@@ -475,6 +495,10 @@ html:not([data-theme="dark"]) .services-table thead th {
 .section-title {
   font-size: 130%;
   color: #7b451f;
+}
+/* White title when placed inside a colored showcase band */
+.showcase .section-title {
+  color: #ffffff;
 }
 .mt-10p {
   margin-top: 10%;
@@ -864,6 +888,20 @@ html:not([data-theme="dark"]) .services-table thead th {
   height: 20px;
 }
 
+/* Enlarge WhatsApp icons */
+.btn.whatsapp-outline .ico,
+.fab .ico {
+  width: 24px;
+  height: 24px;
+}
+@media (max-width: 640px) {
+  .btn.whatsapp-outline .ico,
+  .fab .ico {
+    width: 22px;
+    height: 22px;
+  }
+}
+
 /* Loading throbber */
 .loading {
   display: grid;
@@ -913,7 +951,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 
 /* Showcase section */
 .showcase {
-  margin-top: 32px;
+  margin-top: 0;
 }
 .showcase-grid {
   display: grid;
@@ -922,7 +960,17 @@ html:not([data-theme="dark"]) .services-table thead th {
   /* full-bleed color band */
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  padding: 24px;
+  padding: 3% 10%;
+}
+/* Title row inside showcase should not be split into 3 columns on wide screens */
+.showcase .title-row {
+  grid-template-columns: 1fr !important;
+  text-align: left;
+  color: #ffffff;
+}
+.showcase .title-row .section-title {
+  color: #ffffff !important;
+  margin: 0;
 }
 @media (min-width: 900px) {
   .showcase-grid {
@@ -930,15 +978,18 @@ html:not([data-theme="dark"]) .services-table thead th {
   }
 }
 .showcase > .showcase-grid:nth-of-type(odd) {
-  background: var(--showcaseTan);
+  background: var(--showcaseGray);
 }
 .showcase > .showcase-grid:nth-of-type(even) {
-  background: var(--showcaseGray);
+  background: var(--showcaseTan);
 }
 .case-card {
   background: var(--card);
   border: 1px solid var(--ring);
-  padding: 15px 10px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 3px;
+  padding-bottom: 10px;
 }
 .case-images {
   display: grid;
@@ -954,6 +1005,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 .case-images .img-wrap {
   position: relative;
   overflow: hidden;
+  height: 200px; /* enforce consistent gallery tile height */
 }
 .case-images .img-wrap img {
   width: 100%;
@@ -987,9 +1039,9 @@ html:not([data-theme="dark"]) .services-table thead th {
   transform: translateY(0);
 }
 .case-caption {
-  margin: 10px 0 0;
+  margin: 3%;
   color: var(--muted);
-  font-size: 100%;
+  font-size: 90%;
   line-height: 1.5;
 }
 /* About page */

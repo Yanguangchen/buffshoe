@@ -86,9 +86,8 @@
       </section>
       <section class="hero-content container">
         <p class="hero-subtitle">
-          Your favourite shoes deserve a glow-up. Step out in a ‘brand-new’ pair
-          of shoes. Make an entrance. Turns heads. Close that deal.
-          <strong>Buff</strong> it up. <br /><br />
+          Your favourite shoes deserve a glow-up. Step out in a ‘brand-new’ pair of shoes. Make an entrance. Turns heads. Close that deal.
+          <strong>Buff</strong> it up. 
           From premium dress shoes to everyday sneakers,
           <strong>Buff</strong> provides services in cleaning, shining and minor
           restoration works. Every shoe is treated with precision and patience,
@@ -124,12 +123,13 @@
     </main>
 
     <main class="container">
-      <h1 class="section-title" style="font-size: 250%">Our Showcase</h1>
       <section
         class="showcase"
         aria-label="Before and after gallery"
         id="home-showcase-root"
       >
+  
+        <div class="showcase-grid title-row" style="background-color: #8a7760; padding-bottom: 1px !important; padding-top: 15px !important;"><h1 class="section-title" style="font-size: 250%; background-color: #8a7760; padding-bottom: 3px !important; padding-top: 3px !important;">Our Showcase</h1></div>
         <div class="showcase-grid">
           <!-- Card 1 -->
           <article class="case-card">
@@ -502,10 +502,8 @@
     <main class="container page-top">
       <section class="our-services">
         <h1>Our Services</h1>
-
-        <h2>Dress Shoes</h2>
         <div class="services-table-wrap">
-          <table class="services-table" aria-label="Dress shoe services">
+          <table class="services-table" aria-describedby="services-note">
             <thead>
               <tr>
                 <th scope="col">Service</th>
@@ -515,66 +513,28 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row">Express Shine</th>
-                <td>Cleaning + Shoe cream + Waxing and shine</td>
-                <td class="price">$10</td>
+                <th scope="row">BUFF’s Dress Shoe Deep Shine</th>
+                <td>Cleaning and stripping old wax layers (if any) + Leather conditioning and nourishment + Shoe cream colour restoration + Waxing and shining (medium or high shine)</td>
+                <td class="price">S$XX</td>
               </tr>
               <tr>
-                <th scope="row">Executive Shine</th>
-                <td>
-                  Strip old wax + Deep clean + 8-hour conditioning + Shoe cream
-                  + Waxing and shine
-                </td>
-                <td class="price">$40</td>
+                <th scope="row">BUFF’s Sneaker Revival Clean</th>
+                <td>Thorough cleaning and washing of sneaker uppers, midsoles, soles, insoles and shoe laces + Protective water proofing</td>
+                <td class="price">S$XX</td>
               </tr>
               <tr>
-                <th scope="row">Platinum Shine</th>
-                <td>
-                  Executive Shine + Mirror/medium shine finish + Edge dressing
-                </td>
-                <td class="price">$60</td>
+                <th scope="row">Unyellowing of Sneaker Soles</th>
+                <td>Whitening restoration of yellowed soles and midsoles</td>
+                <td class="price">S$XX</td>
+              </tr>
+              <tr>
+                <th scope="row">Minor Restoration</th>
+                <td>Minor touch ups and repairs</td>
+                <td class="price">&gt;S$XX*</td>
               </tr>
             </tbody>
           </table>
-        </div>
-
-        <h2>Sneakers</h2>
-        <div class="services-table-wrap">
-          <table class="services-table" aria-label="Sneaker services">
-            <thead>
-              <tr>
-                <th scope="col">Service</th>
-                <th scope="col">Description</th>
-                <th scope="col" class="price-col">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Express Clean</th>
-                <td>Upper, mid and bottom soles + laces</td>
-                <td class="price">$10</td>
-              </tr>
-              <tr>
-                <th scope="row">Restart Clean</th>
-                <td>
-                  Full clean including insoles, tongue, inner mesh + laces
-                </td>
-                <td class="price">$30</td>
-              </tr>
-              <tr>
-                <th scope="row">Reborn Clean</th>
-                <td>
-                  Restart Clean + Unyellowing + Water repellent + Deodorising
-                </td>
-                <td class="price">$50</td>
-              </tr>
-              <tr>
-                <th scope="row">Water Repellent Spray</th>
-                <td>Protective water repellent coating</td>
-                <td class="price">$10</td>
-              </tr>
-            </tbody>
-          </table>
+          <p id="services-note" class="services-note">* Actual fee depends on restoration deliverables</p>
         </div>
       </section>
     </main>
@@ -731,7 +691,9 @@
       async function renderHomeShowcase() {
         const root = document.getElementById("home-showcase-root");
         if (!root) return;
+        const titleRow = root.querySelector('.title-row');
         root.innerHTML = "";
+        if (titleRow) root.appendChild(titleRow);
         // Loading UI
         const loadingRow = document.createElement("div");
         loadingRow.className = "showcase-grid";
@@ -747,6 +709,7 @@
           const snap = await getDocs(qy);
           const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
           root.innerHTML = "";
+          if (titleRow) root.appendChild(titleRow);
           for (const group of chunk(items, 3)) {
             const row = document.createElement("div");
             row.className = "showcase-grid";

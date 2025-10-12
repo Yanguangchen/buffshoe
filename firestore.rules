@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null &&
+             request.auth.uid in [
+               "nHGeoYkd07XngCq9EqtSxGdwsva2",
+               "GpRoEKwRdrSPAovz0CXqSJeVv6h1"
+             ];
+    }
+
+    // Public can read gallery; only admins can write
+    match /gallery/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Everything else restricted to admins
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
+
+
