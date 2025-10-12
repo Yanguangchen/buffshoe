@@ -39,7 +39,6 @@
 html,
 body {
   height: 100%;
-  overflow-x: hidden;
   background-color: #fffff2;
 }
 html {
@@ -232,7 +231,6 @@ section {
 .hero-wrap {
   display: grid;
   justify-items: center;
-  overflow: none;
 }
 .wordmark {
   font-family: "Playfair Display", ui-serif, Georgia, Times, serif;
@@ -268,7 +266,6 @@ section {
 @media (max-width: 640px) {
   .wordmark {
     font-size: 100px;
-    margin-bottom: 5%;
   }
 }
 
@@ -375,6 +372,7 @@ section {
   font-size: 100%;
   background-color: #f8f3e6;
   padding-left: 2%;
+  text-align: center !important;
 }
 
 /* Upscale hero subtitle on 1920x1080+ screens */
@@ -387,7 +385,7 @@ section {
 /* Reduce hero subtitle size by ~30% on small screens */
 @media (max-width: 640px) {
   .hero-subtitle {
-    font-size: 70%;
+    font-size: 50%;
   }
 }
 
@@ -399,13 +397,21 @@ section {
 }
 .hero-content.container {
   max-width: 100vw !important;
-  width: 100vw;
   /* full-bleed background across viewport */
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 .hero-content .hero-subtitle {
   margin-top: 0 !important;
+  width: 100%;
+  max-width: none;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.hero-content .hero-subtitle::after {
+  content: "";
+  display: inline-block;
+  width: 100%; /* justify last line */
 }
 
 /* WhatsApp outline button to match mockup */
@@ -563,7 +569,7 @@ html:not([data-theme="dark"]) .services-table thead th {
 
 @media (max-width: 640px) {
   .wordmark {
-    padding-top: 30%;
+    padding-top: 20%;
   }
 }
 /* Gallery grid */
@@ -889,6 +895,22 @@ html:not([data-theme="dark"]) .services-table thead th {
     padding: 6px 8px;
     gap: 8px;
     font-size: 13px;
+  }
+}
+
+/* Mobile tuning for services table */
+@media (max-width: 640px) {
+  .services-table th,
+  .services-table td {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+  .services-table th[scope="row"] {
+    width: auto;
+  }
+  .services-table .price-col,
+  .services-table .price {
+    font-size: 12px;
   }
 }
 
