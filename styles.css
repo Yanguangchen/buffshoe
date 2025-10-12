@@ -235,12 +235,12 @@ section {
   overflow: none;
 }
 .wordmark {
-  font-family: "Playfair Display Black", ui-serif, Georgia, Times, serif;
-  font-size: 250px;
+  font-family: "Playfair Display", ui-serif, Georgia, Times, serif;
+  font-size: 270px;
   line-height: 0.8;
   color: #ffffff;
   width: 100vw; /* span full viewport width */
-  font-weight: 600;
+  font-weight: bold;
   animation: wordmark-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   will-change: transform, opacity;
   display: block;
@@ -324,8 +324,11 @@ section {
 }
 
 .site-footer {
-  background-color: #7b451f;
+  background: linear-gradient(rgba(123, 69, 31, 0.65), rgba(123, 69, 31, 0.65)), url("footer-bg.jpg") center / cover no-repeat;
   color: white !important;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* Stagger hero content (excluding the animated wordmark) */
@@ -368,7 +371,7 @@ section {
   margin: 0 !important; /* remove outer white bars */
   padding: 1% 0; /* keep vertical spacing via padding */
   max-width: 720px;
-  color: var(--text);
+  color: #783f05;
   font-size: 100%;
   background-color: #f8f3e6;
   padding-left: 2%;
@@ -378,6 +381,13 @@ section {
 @media (min-width: 1920px) {
   .hero-subtitle {
     font-size: 170%;
+  }
+}
+
+/* Reduce hero subtitle size by ~30% on small screens */
+@media (max-width: 640px) {
+  .hero-subtitle {
+    font-size: 70%;
   }
 }
 
