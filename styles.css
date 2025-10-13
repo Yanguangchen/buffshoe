@@ -40,6 +40,7 @@ html,
 body {
   height: 100%;
   background-color: #fffff2;
+  overflow-x: hidden;
 }
 html {
   scroll-behavior: smooth;
@@ -1082,6 +1083,7 @@ html:not([data-theme="dark"]) .services-table thead th {
   padding-right: 3px;
   padding-top: 3px;
   padding-bottom: 10px;
+  width: 85%;
 }
 .case-images {
   display: grid;
