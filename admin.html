@@ -165,6 +165,34 @@
         <h3>Gallery Items</h3>
         <div id="items" class="contact-form"></div>
       </section>
+      <section
+        class="contact"
+        id="hero-editor"
+        style="max-width: 920px; display: none"
+      >
+        <h3>Homepage Hero Subtitle</h3>
+        <div class="contact-form">
+          <div class="actions" style="gap: 8px; flex-wrap: wrap">
+            <button type="button" class="btn" id="hero-bold">Bold</button>
+            <button type="button" class="btn alt" id="hero-br">Line break</button>
+            <button type="button" class="btn alt" id="hero-clear">Clear formatting</button>
+          </div>
+          <div
+            id="heroEditor"
+            contenteditable="true"
+            aria-label="Hero subtitle editor"
+            style="min-height: 180px; padding: 12px; border: 1px solid rgba(0,0,0,.2); border-radius: 8px; margin: 8px 0;"
+          ></div>
+          <div class="actions">
+            <button type="button" class="btn" id="saveHero">Save</button>
+            <button type="button" class="btn alt" id="resetHero">Reset to default</button>
+          </div>
+          <div style="margin-top: 12px">
+            <h3 style="margin: 0 0 6px">Preview</h3>
+            <p class="hero-subtitle" id="heroPreview"></p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <div class="fab">
@@ -244,6 +272,8 @@
         doc,
         updateDoc,
         deleteDoc,
+        getDoc,
+        setDoc,
       } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
       const firebaseConfig = {
@@ -267,6 +297,7 @@
       const signoutBtn = document.getElementById("signout");
       const editor = document.getElementById("editor");
       const listSection = document.getElementById("list");
+      const heroSection = document.getElementById("hero-editor");
       const authStatus = document.getElementById("auth-status");
       const provider = new GoogleAuthProvider();
       let currentEditId = null;
@@ -277,6 +308,7 @@
         signoutBtn.style.display = authed ? "" : "none";
         editor.style.display = authed ? "" : "none";
         listSection.style.display = authed ? "" : "none";
+        if (heroSection) heroSection.style.display = authed ? "" : "none";
         authStatus.textContent = authed
           ? `Signed in as ${user?.email || ""}`
           : "You must sign in to manage the gallery.";
@@ -303,7 +335,10 @@
 
       onAuthStateChanged(auth, (user) => {
         setAuthed(!!user, user);
-        if (user) loadItems();
+        if (user) {
+          loadItems();
+          loadHeroSubtitle();
+        }
       });
       signinBtn.addEventListener("click", async () => {
         await signInWithPopup(auth, provider);
@@ -351,65 +386,80 @@
         }
       }
 
+      function chunk(arr, size) {
+        const out = [];
+        for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+        return out;
+      }
+
       async function loadItems() {
         const itemsEl = document.getElementById("items");
         itemsEl.innerHTML = "";
         const qy = query(collection(db, "gallery"), orderBy("order", "asc"));
         const snap = await getDocs(qy);
+        const docs = [];
         snap.forEach(function (docSnap) {
-          const d = docSnap.data();
-          const wrap = document.createElement("div");
-          wrap.className = "contact-form";
-          const card = document.createElement("article");
-          card.className = "case-card";
-          const imgs = document.createElement("div");
-          imgs.className = "case-images";
-          const b = document.createElement("img");
-          b.src = d.beforeData || d.beforeUrl || "";
-          const a = document.createElement("img");
-          a.src = d.afterData || d.afterUrl || "";
-          imgs.appendChild(b);
-          imgs.appendChild(a);
-          const cap = document.createElement("p");
-          cap.className = "case-caption";
-          cap.textContent = d.caption || "";
-          card.appendChild(imgs);
-          card.appendChild(cap);
-          const actions = document.createElement("div");
-          actions.className = "actions";
-          const editBtn = document.createElement("button");
-          editBtn.className = "btn alt";
-          editBtn.textContent = "Edit";
-          const delBtn = document.createElement("button");
-          delBtn.className = "btn";
-          delBtn.textContent = "Delete";
-          actions.appendChild(editBtn);
-          actions.appendChild(delBtn);
-          wrap.appendChild(card);
-          wrap.appendChild(actions);
-          itemsEl.appendChild(wrap);
-
-          editBtn.addEventListener("click", function () {
-            currentEditId = docSnap.id;
-            currentEditData = d;
-            document.getElementById("editId").value = currentEditId;
-            document.getElementById("title").value = d.title || "";
-            document.getElementById("caption").value = d.caption || "";
-            document.getElementById("order").value = d.order ?? 0;
-            document.getElementById("beforeFile").value = "";
-            document.getElementById("afterFile").value = "";
-            document.getElementById("saveBtn").textContent = "Update Item";
-            document.getElementById("cancelEdit").style.display = "";
-            updatePreviewWithData(d);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          });
-
-          delBtn.addEventListener("click", async function () {
-            if (!confirm("Delete this item?")) return;
-            await deleteDoc(doc(db, "gallery", docSnap.id));
-            await loadItems();
-          });
+          docs.push({ id: docSnap.id, data: docSnap.data() });
         });
+        for (const group of chunk(docs, 3)) {
+          const row = document.createElement("div");
+          row.className = "showcase-grid";
+          group.forEach(function (it) {
+            const d = it.data;
+            const cell = document.createElement("div");
+            cell.className = "contact-form";
+            const card = document.createElement("article");
+            card.className = "case-card";
+            const imgs = document.createElement("div");
+            imgs.className = "case-images";
+            const b = document.createElement("img");
+            b.src = d.beforeData || d.beforeUrl || "";
+            const a = document.createElement("img");
+            a.src = d.afterData || d.afterUrl || "";
+            imgs.appendChild(b);
+            imgs.appendChild(a);
+            const cap = document.createElement("p");
+            cap.className = "case-caption";
+            cap.textContent = d.caption || "";
+            card.appendChild(imgs);
+            card.appendChild(cap);
+            const actions = document.createElement("div");
+            actions.className = "actions";
+            const editBtn = document.createElement("button");
+            editBtn.className = "btn alt";
+            editBtn.textContent = "Edit";
+            const delBtn = document.createElement("button");
+            delBtn.className = "btn";
+            delBtn.textContent = "Delete";
+            actions.appendChild(editBtn);
+            actions.appendChild(delBtn);
+            cell.appendChild(card);
+            cell.appendChild(actions);
+            row.appendChild(cell);
+
+            editBtn.addEventListener("click", function () {
+              currentEditId = it.id;
+              currentEditData = d;
+              document.getElementById("editId").value = currentEditId;
+              document.getElementById("title").value = d.title || "";
+              document.getElementById("caption").value = d.caption || "";
+              document.getElementById("order").value = d.order ?? 0;
+              document.getElementById("beforeFile").value = "";
+              document.getElementById("afterFile").value = "";
+              document.getElementById("saveBtn").textContent = "Update Item";
+              document.getElementById("cancelEdit").style.display = "";
+              updatePreviewWithData(d);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+
+            delBtn.addEventListener("click", async function () {
+              if (!confirm("Delete this item?")) return;
+              await deleteDoc(doc(db, "gallery", it.id));
+              await loadItems();
+            });
+          });
+          itemsEl.appendChild(row);
+        }
       }
 
       document
@@ -519,6 +569,140 @@
           updatePreviewFromInputs();
         });
       });
+
+      // -------------------- Hero Subtitle Editor --------------------
+      function sanitizeAllowedHtml(inputHtml) {
+        const container = document.createElement('div');
+        container.innerHTML = inputHtml || '';
+        function clean(node) {
+          if (node.nodeType === Node.TEXT_NODE) return node.cloneNode();
+          if (node.nodeType !== Node.ELEMENT_NODE) return document.createTextNode('');
+          const tag = node.tagName.toLowerCase();
+          const isAllowed = tag === 'strong' || tag === 'b' || tag === 'br' || tag === 'a';
+          if (!isAllowed) return document.createTextNode(node.textContent || '');
+          const out = document.createElement(tag === 'b' ? 'strong' : tag);
+          if (tag === 'a') {
+            const href = node.getAttribute('href') || '';
+            if (/^mailto:/i.test(href)) {
+              out.setAttribute('href', href);
+              const cls = node.getAttribute('class');
+              if (cls) out.setAttribute('class', cls);
+            } else {
+              return document.createTextNode(node.textContent || '');
+            }
+          }
+          Array.from(node.childNodes).forEach(function (child) {
+            out.appendChild(clean(child));
+          });
+          return out;
+        }
+        const wrapper = document.createElement('div');
+        Array.from(container.childNodes).forEach(function (n) {
+          wrapper.appendChild(clean(n));
+        });
+        return wrapper.innerHTML;
+      }
+
+      const heroEditor = document.getElementById('heroEditor');
+      const heroPreview = document.getElementById('heroPreview');
+      const boldBtn = document.getElementById('hero-bold');
+      const brBtn = document.getElementById('hero-br');
+      const clearBtn = document.getElementById('hero-clear');
+      const saveHeroBtn = document.getElementById('saveHero');
+      const resetHeroBtn = document.getElementById('resetHero');
+
+      function updateHeroPreview() {
+        const sanitized = sanitizeAllowedHtml(heroEditor.innerHTML);
+        heroPreview.innerHTML = sanitized;
+      }
+
+      if (heroEditor) {
+        heroEditor.addEventListener('input', updateHeroPreview);
+      }
+      if (boldBtn) {
+        boldBtn.addEventListener('click', function () {
+          document.execCommand('bold');
+          updateHeroPreview();
+        });
+      }
+      if (brBtn) {
+        brBtn.addEventListener('click', function () {
+          document.execCommand('insertHTML', false, '<br /><br />');
+          updateHeroPreview();
+        });
+      }
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+          document.execCommand('removeFormat');
+          heroEditor.innerHTML = sanitizeAllowedHtml(heroEditor.innerHTML);
+          updateHeroPreview();
+        });
+      }
+
+      async function loadHeroSubtitle() {
+        try {
+          const ref = doc(db, 'content', 'heroSubtitle');
+          const snap = await getDoc(ref);
+          if (snap.exists()) {
+            const html = String(snap.data().html || '');
+            const safe = sanitizeAllowedHtml(html);
+            heroEditor.innerHTML = safe;
+            heroPreview.innerHTML = safe;
+          } else {
+            heroEditor.innerHTML = '';
+            heroPreview.innerHTML = '';
+          }
+        } catch (e) {
+          console.error('Failed to load hero subtitle', e);
+        }
+      }
+
+      async function saveHeroSubtitle() {
+        try {
+          if (!auth.currentUser) {
+            alert('Please sign in first.');
+            return;
+          }
+          const safe = sanitizeAllowedHtml(heroEditor.innerHTML);
+          const ref = doc(db, 'content', 'heroSubtitle');
+          await setDoc(ref, { html: safe, updatedAt: serverTimestamp() });
+          heroPreview.innerHTML = safe;
+          alert('Saved');
+        } catch (e) {
+          console.error('Save hero failed', e);
+          alert('Save failed. Check your connection and permissions.');
+        }
+      }
+
+      async function resetHeroSubtitle() {
+        if (!confirm('Reset to default content? This removes the saved version.')) return;
+        try {
+          const ref = doc(db, 'content', 'heroSubtitle');
+          await deleteDoc(ref);
+          heroEditor.innerHTML = '';
+          heroPreview.innerHTML = '';
+          alert('Reset. The homepage will show its built-in default.');
+        } catch (e) {
+          console.error('Reset hero failed', e);
+          alert('Reset failed.');
+        }
+      }
+
+      if (saveHeroBtn) saveHeroBtn.addEventListener('click', saveHeroSubtitle);
+      if (resetHeroBtn) resetHeroBtn.addEventListener('click', resetHeroSubtitle);
     </script>
   </body>
 </html>
+<style>
+  /* Admin gallery list: prevent clipping and full-bleed bands */
+  #list { overflow: visible !important; }
+  #list .showcase-grid {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  #list .contact-form { max-width: none; margin: 0; }
+  #list .case-card { overflow: visible; }
+</style>

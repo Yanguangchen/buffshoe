@@ -652,6 +652,8 @@
         getDocs,
         query,
         orderBy,
+        doc,
+        getDoc,
       } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
       const firebaseConfig = {
@@ -669,6 +671,58 @@
         experimentalAutoDetectLongPolling: true,
         useFetchStreams: false,
       });
+
+      function sanitizeAllowedHtml(inputHtml) {
+        const container = document.createElement('div');
+        container.innerHTML = inputHtml || '';
+        function clean(node) {
+          if (node.nodeType === Node.TEXT_NODE) return node.cloneNode();
+          if (node.nodeType !== Node.ELEMENT_NODE) return document.createTextNode('');
+          const tag = node.tagName.toLowerCase();
+          const isAllowed = tag === 'strong' || tag === 'b' || tag === 'br' || tag === 'a';
+          if (!isAllowed) return document.createTextNode(node.textContent || '');
+          const out = document.createElement(tag === 'b' ? 'strong' : tag);
+          if (tag === 'a') {
+            const href = node.getAttribute('href') || '';
+            if (/^mailto:/i.test(href)) {
+              out.setAttribute('href', href);
+              const cls = node.getAttribute('class');
+              if (cls) out.setAttribute('class', cls);
+              const id = node.getAttribute('id');
+              if (id) out.setAttribute('id', id);
+            } else {
+              return document.createTextNode(node.textContent || '');
+            }
+          }
+          Array.from(node.childNodes).forEach(function (child) {
+            out.appendChild(clean(child));
+          });
+          return out;
+        }
+        const wrapper = document.createElement('div');
+        Array.from(container.childNodes).forEach(function (n) {
+          wrapper.appendChild(clean(n));
+        });
+        return wrapper.innerHTML;
+      }
+
+      async function renderHeroSubtitle() {
+        try {
+          const el = document.querySelector('.hero-subtitle');
+          if (!el) return;
+          const original = el.innerHTML;
+          const ref = doc(db, 'content', 'heroSubtitle');
+          const snap = await getDoc(ref);
+          if (snap.exists()) {
+            const html = String(snap.data().html || '');
+            el.innerHTML = sanitizeAllowedHtml(html);
+          } else {
+            el.innerHTML = original; // keep default bundled copy
+          }
+        } catch (e) {
+          // fail silently; keep default content
+        }
+      }
 
       function chunk(arr, size) {
         const out = [];
@@ -736,6 +790,7 @@
           console.error(e);
         }
       }
+      renderHeroSubtitle();
       renderHomeShowcase();
     </script>
   </body>
