@@ -772,12 +772,17 @@
           const snap = await getDoc(ref);
           if (snap.exists()) {
             const html = String(snap.data().html || '');
-            el.innerHTML = sanitizeAllowedHtml(html);
+            const safe = sanitizeAllowedHtml(html);
+            el.innerHTML = safe;
+            el.setAttribute('data-hero-loaded', 'remote');
+            console.debug('[BUFF] Hero subtitle loaded from Firestore');
           } else {
-            el.innerHTML = original; // keep default bundled copy
+            el.innerHTML = original;
+            el.setAttribute('data-hero-loaded', 'default');
+            console.debug('[BUFF] Hero subtitle document missing; using default');
           }
         } catch (e) {
-          // fail silently; keep default content
+          console.error('[BUFF] Failed to load hero subtitle', e);
         }
       }
 
