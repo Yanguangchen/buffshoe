@@ -988,6 +988,52 @@ html:not([data-theme="dark"]) .services-table thead th {
   height: 20px;
 }
 
+/* Floating social icons (top-right) */
+.social-fab {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 70; /* above navbar (50) and fab (60) */
+}
+.social-fab a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+.social-fab a:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+.social-fab .ico {
+  width: 18px;
+  height: 18px;
+}
+@media (max-width: 640px) {
+  .social-fab {
+    top: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+  .social-fab a {
+    width: 32px;
+    height: 32px;
+  }
+  .social-fab .ico {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 /* Enlarge WhatsApp icons */
 .btn.whatsapp-outline .ico,
 .fab .ico {
