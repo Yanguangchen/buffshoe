@@ -232,6 +232,7 @@ section {
 .hero-wrap {
   display: grid;
   justify-items: center;
+  position: relative; /* allow absolute hero overlays */
 }
 .wordmark {
   font-family: "Playfair Display", ui-serif, Georgia, Times, serif;
@@ -639,6 +640,29 @@ html:not([data-theme="dark"]) .services-table thead th {
   .wordmark {
     padding-top: 20%;
   }
+}
+/* Hero social overlay (homepage only) */
+.hero-social {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 10px;
+  z-index: 55;
+}
+.hero-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+}
+.hero-social .ico { width: 20px; height: 20px; }
+@media (max-width: 640px) {
+  .hero-social { top: 8px; right: 8px; gap: 8px; }
+  .hero-social a { width: 28px; height: 28px; }
+  .hero-social .ico { width: 18px; height: 18px; }
 }
 /* Gallery grid */
 .gallery {
